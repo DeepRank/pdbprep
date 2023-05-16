@@ -4,9 +4,10 @@ Prepare PDB files for MD minimization with OpenMM Amber14 forcefield.
 
 Install the following dependencies in the same Python environment:
 
-1. Install OpenMM: `conda instal -c conda-forge openmm`
+1. Install OpenMM: `conda install -c conda-forge openmm`
+1. Install chardet and scipy: `conda install chardet scipy` 
 1. Install pdb2pqr: `pip install pdb2pqr`
-1. Install @joaomcteixeira fork of the `Pras_Server`:
+1. Install @joaomcteixeira fork of the `Pras_Server` as follows:
 
 ```
 git clone https://github.com/joaomcteixeira/Pras_Server
@@ -49,6 +50,7 @@ Add the path to the PRAS file in the `pdb_prepare.sh` file, edit its line 4.
 `echo "export PATH=\$PATH:`pwd`" >> .bashrc`
 
 Source `.bashrc` after.
+- Note that this step must always be done (in the correct path), each time you restart the terminal
 
 ## Update `*.py` shebang
 
@@ -61,7 +63,7 @@ To prepare PDBs:
 
 1. Navigate to the folder where you want the new PDBs to be saved
 1. create a file with the list of paths to the input PDB files. For example `ls path/to/my/pdbs/*.pdb > pdblist`
-1. run `pdb_prepare.sh pdblist N`, where `N` is the numbers of threads you want o use.
+1. run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
 
 The script will create a series of folders for the different steps. If
 everything goes okay, temporary PDBs will be deleted and only those in the last
