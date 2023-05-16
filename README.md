@@ -8,8 +8,9 @@ Install the following dependencies in the same Python environment:
 1. Install chardet and scipy: `conda install chardet scipy` 
 1. Install pdb2pqr: `pip install pdb2pqr`
 1. Install @joaomcteixeira fork of the `Pras_Server` as follows:
+  - make sure to do this outside of the current repo (so do `cd ..` if you are currently in the folder for this repo)
 
-```
+```bash
 git clone https://github.com/joaomcteixeira/Pras_Server
 cd Pras_Server
 git fetch
