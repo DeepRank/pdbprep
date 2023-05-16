@@ -28,12 +28,11 @@ the original authors:
 
 PRAS performs better to add missing heavy atoms than other more known programs.
 
-# 2. Prepare the scripts
+# 2. Give permission
+In the current repo (i.e. not the Pras repo),  give the necessary permissions to the `*.py` and `.sh` files.
 
-Unpack the files and give the necessary permissions to the `*.py` and `.sh` files.
-
-1. `tar -xf prepare_pdbs.tar`
-1. `chmod u+x *.py pdb_prepare.sh`
+- If you're still on the Pras folder: `cd ../pdbprep` 
+- Give permission: `chmod u+x *.py pdb_prepare.sh`
 
 The `pdb_*.py` files are taken from the `pdb-tools` project from Alexandre Bonvin lab.
 
@@ -51,7 +50,7 @@ Add the path to the PRAS file in the `pdb_prepare.sh` file, edit its line 4.
 `echo "export PATH=\$PATH:`pwd`" >> .bashrc`
 
 Source `.bashrc` after.
-- Note that this step must always be done (in the correct path), each time you restart the terminal
+- Note that this step must always be done (in the correct path), each time you restart the terminal.
 
 ## Update `*.py` shebang
 
@@ -62,8 +61,8 @@ Type `whereis python` (or `which python`) and update the python path in the
 
 To prepare PDBs:
 
-1. Navigate to the folder where you want the new PDBs to be saved
-1. create a file with the list of paths to the input PDB files. For example `ls path/to/my/pdbs/*.pdb > pdblist`
+1. Navigate to the folder where you want the new PDBs to be saved.
+1. create a file with the list of paths to the input PDB files. You can use `ls path/to/my/pdbs/*.pdb > pdblist` from commandline or create a new file and paste `path/to/my/pdbs/*.pdb` inside.
 1. run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
 
 The script will create a series of folders for the different steps. If
