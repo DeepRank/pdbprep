@@ -46,7 +46,9 @@ Add the path to the PRAS file in the `pdb_prepare.sh` file, edit its line 4.
 
 ## Add the folder with the scripts to `PATH`:
 
-`echo "export PATH=\$PATH:`pwd`" >> .bashrc`
+```
+echo "export PATH=\$PATH:`pwd`" >> .bashrc
+```
 
 Source `.bashrc` after.
 
@@ -69,4 +71,4 @@ folder `4_ready_to_minimize` will be saved. If something goes wrong with a
 PDB, its intermediate temporary files won't be deleted and we can check them
 afterwards.
 
-Several comments in the `pdb_cleaning_v2.sh` file explain the process.
+Several comments in the `pdb_prepare.sh` file explain the process.
