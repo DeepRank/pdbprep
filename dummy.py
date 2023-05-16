@@ -1,0 +1,1 @@
+print('spam '*3)
