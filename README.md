@@ -49,15 +49,14 @@ improve their speed. Hence, the `pdb-tools` scripts provided here won't work
 outside the `pdbprep` context. If you want to use `pdb-tools` for any other need,
 install the official package `pip install pdb-tools`, and cite the original work.
 
-If PRAS was not placed in the default location (as suggested above), add the
-absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of the
+Add the absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of the
 `.sh` file).
 
 # 3. Prepare PDBs
 
 ## 3.1 source the `setup.sh` file
 
-From within the `pdbprep` folder, source the `setup.sh` file: `source setupt.sh`.
+From within the `pdbprep` folder, source the `setup.sh` file: `source setup.sh`.
 You need to perform this operation every time you want to use `pdbprep` in a new
 terminal window.
 
@@ -78,6 +77,7 @@ PDB, its intermediate temporary files won't be deleted and we can check them
 afterwards.
 
 Several comments in the `pdb_prepare.sh` file explain the process.
+
 
 # 4. Troubleshooting
 
