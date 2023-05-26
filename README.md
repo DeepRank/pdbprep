@@ -49,8 +49,9 @@ improve their speed. Hence, the `pdb-tools` scripts provided here won't work
 outside the `pdbprep` context. If you want to use `pdb-tools` for any other need,
 install the official package `pip install pdb-tools`, and cite the original work.
 
-Add the absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of the
-`.sh` file).
+If PRAS was not placed in the default location (as suggested above), add the
+absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of
+`pbd_prepare.sh`).
 
 # 3. Prepare PDBs
 
@@ -84,5 +85,5 @@ Several comments in the `pdb_prepare.sh` file explain the process.
 ## 4.1 Can't find Python
 
 In case the script can find the Python interpreter, type `whereis python` (or
-`which python`) and update the python path in the `shabang` of the `*.py` files
+`which python`) and update the python path in the `shabang` (1st line) of the `*.py` files
 accordingly.
