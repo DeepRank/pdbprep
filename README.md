@@ -9,28 +9,29 @@ Install the following dependencies in the same Python environment:
 1. Install pdb2pqr: `pip install pdb2pqr`
 1. Clone the current repo: `git clone git@github.com:DeepRank/pdbprep.git`
 1. Install @joaomcteixeira fork of the `Pras_Server`
-
-```bash
-# ensure to install the fork outside the `pdbprep` repository, if needed,
-# navigate to the parent directy in case you are in the `pdbprep` repository
-# folder
-cd ..
-
-# clone the fork and compile the software
-git clone https://github.com/joaomcteixeira/Pras_Server
-cd Pras_Server
-git fetch
-git checkout nolog
-cd Pras_Server_C++
-g++ -std=c++17 src/*.cpp -o PRAS
-```
-
-Why the fork? Because in the fork's branch the logging operations were removed
+    - Why the fork? Because in the fork's branch the logging operations were removed
 to avoid writing thousand of log files to disk. All credit about PRAS should be
 given to the original authors:
 
-* https://github.com/osita-sunday-nnyigide/Pras_Server
-* https://pubs.acs.org/doi/10.1021/acs.jcim.2c00571
+        * https://github.com/osita-sunday-nnyigide/Pras_Server
+        * https://pubs.acs.org/doi/10.1021/acs.jcim.2c00571
+    - Install as follows:
+
+        ```bash
+        # ensure to install the fork outside the `pdbprep` repository, if needed,
+        # navigate to the parent directy in case you are in the `pdbprep` repository
+        # folder
+        cd ..
+
+        # clone the fork and compile the software
+        git clone https://github.com/joaomcteixeira/Pras_Server
+        cd Pras_Server
+        git fetch
+        git checkout nolog
+        cd Pras_Server_C++
+        g++ -std=c++17 src/*.cpp -o PRAS
+        ```
+
 
 # 2. Give execution permission to files
 
