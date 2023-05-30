@@ -2,34 +2,36 @@ Prepare PDB files for MD minimization with OpenMM Amber14 forcefield.
 
 # 1. Install dependencies
 
-Install the following dependencies in the same Python environment:
+Install the following dependencies in the a Python environment:
 
 1. Install OpenMM: `conda install -c conda-forge openmm`
 1. Install chardet: `conda install chardet`
 1. Install pdb2pqr: `pip install pdb2pqr`
-1. Install @joaomcteixeira fork of the `Pras_Server` as follows:
-
-```bash
-# ensure to install the fork outside the `pdbprep` repository, if needed,
-# navigate to the parent directy in case you are in the `pdbprep` repository
-# folder
-cd ..
-
-# clone the fork and compile the software
-git clone https://github.com/joaomcteixeira/Pras_Server
-cd Pras_Server
-git fetch
-git checkout nolog
-cd Pras_Server_C++
-g++ -std=c++17 src/*.cpp -o PRAS
-```
-
-Why the fork? Because in the fork's branch the logging operations were removed
+1. Clone the current repo: `git clone git@github.com:DeepRank/pdbprep.git`
+1. Install @joaomcteixeira fork of the `Pras_Server`
+    - Why the fork? Because in the fork's branch the logging operations were removed
 to avoid writing thousand of log files to disk. All credit about PRAS should be
 given to the original authors:
 
-* https://github.com/osita-sunday-nnyigide/Pras_Server
-* https://pubs.acs.org/doi/10.1021/acs.jcim.2c00571
+        * https://github.com/osita-sunday-nnyigide/Pras_Server
+        * https://pubs.acs.org/doi/10.1021/acs.jcim.2c00571
+    - Install as follows:
+
+        ```bash
+        # ensure to install the fork outside the `pdbprep` repository, if needed,
+        # navigate to the parent directy in case you are in the `pdbprep` repository
+        # folder
+        cd ..
+
+        # clone the fork and compile the software
+        git clone https://github.com/joaomcteixeira/Pras_Server
+        cd Pras_Server
+        git fetch
+        git checkout nolog
+        cd Pras_Server_C++
+        g++ -std=c++17 src/*.cpp -o PRAS
+        ```
+
 
 # 2. Give execution permission to files
 
@@ -53,29 +55,23 @@ If PRAS was not placed in the default location (as suggested above), add the
 absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of
 `pbd_prepare.sh`).
 
-# 3. Prepare PDBs
-
-## 3.1 source the `setup.sh` file
-
-From within the `pdbprep` folder, source the `setup.sh` file: `source setup.sh`.
-You need to perform this operation every time you want to use `pdbprep` in a new
-terminal window.
-
-## 3.2 Prepare the PDB files
+# 3. Run pdbprep
 
 To prepare the PDB files:
 
+1. From within the pdbprep folder, run `PATH=$PATH:$(pwd)` to add the current directory
+to your $PATH variable.
 1. Navigate to the folder where you want the new PDBs to be saved.
-1. create a file with the list of paths to the input PDB files.
+1. Create a file with the list of paths to the input PDB files.
 You can use `ls path/to/my/pdbs/*.pdb > pdblist` from command-line
 or create a new file and paste `path/to/my/pdbs/*.pdb` inside.
-1. run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
+1. Run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
 
 The script will create a series of folders for the different steps. If
 everything goes okay, temporary PDBs will be deleted and only those in the last
 folder `4_ready_to_minimize` will be saved. If something goes wrong with a
-PDB, its intermediate temporary files won't be deleted and we can check them
-afterwards.
+PDB, its intermediate temporary files won't be deleted and can be used for 
+troubleshooting.
 
 Several comments in the `pdb_prepare.sh` file explain the process.
 
