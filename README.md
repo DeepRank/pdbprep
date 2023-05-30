@@ -7,7 +7,8 @@ Install the following dependencies in the same Python environment:
 1. Install OpenMM: `conda install -c conda-forge openmm`
 1. Install chardet: `conda install chardet`
 1. Install pdb2pqr: `pip install pdb2pqr`
-1. Install @joaomcteixeira fork of the `Pras_Server` as follows:
+1. Clone the current repo: `git clone git@github.com:DeepRank/pdbprep.git`
+1. Install @joaomcteixeira fork of the `Pras_Server`
 
 ```bash
 # ensure to install the fork outside the `pdbprep` repository, if needed,
