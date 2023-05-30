@@ -57,31 +57,21 @@ absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of
 
 # 3. Run pdbprep
 
-## 3.1 add current directory to $PATH
-
-
-From within the pdbprep folder, run the following command to add the current directory
-to your $PATH variable.
-
-```bash
-PATH=$PATH:$(pwd)
-```
-
-## 3.2 Prepare the PDB files
-
 To prepare the PDB files:
 
+1. From within the pdbprep folder, run `PATH=$PATH:$(pwd)` to add the current directory
+to your $PATH variable.
 1. Navigate to the folder where you want the new PDBs to be saved.
-1. create a file with the list of paths to the input PDB files.
+1. Create a file with the list of paths to the input PDB files.
 You can use `ls path/to/my/pdbs/*.pdb > pdblist` from command-line
 or create a new file and paste `path/to/my/pdbs/*.pdb` inside.
-1. run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
+1. Run `pdb_prepare.sh pdblist <N>`, where `N` is the numbers of threads you want to use.
 
 The script will create a series of folders for the different steps. If
 everything goes okay, temporary PDBs will be deleted and only those in the last
 folder `4_ready_to_minimize` will be saved. If something goes wrong with a
-PDB, its intermediate temporary files won't be deleted and we can check them
-afterwards.
+PDB, its intermediate temporary files won't be deleted and can be used for 
+troubleshooting.
 
 Several comments in the `pdb_prepare.sh` file explain the process.
 
