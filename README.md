@@ -2,7 +2,7 @@ Prepare PDB files for MD minimization with OpenMM Amber14 forcefield.
 
 # 1. Install dependencies
 
-Install the following dependencies in the same Python environment:
+Install the following dependencies in the a Python environment:
 
 1. Install OpenMM: `conda install -c conda-forge openmm`
 1. Install chardet: `conda install chardet`
@@ -55,13 +55,17 @@ If PRAS was not placed in the default location (as suggested above), add the
 absolute path to the PRAS file in the `pdb_prepare.sh` file (edit line 4 of
 `pbd_prepare.sh`).
 
-# 3. Prepare PDBs
+# 3. Run pdbprep
 
-## 3.1 source the `setup.sh` file
+## 3.1 add current directory to $PATH
 
-From within the `pdbprep` folder, source the `setup.sh` file: `source setup.sh`.
-You need to perform this operation every time you want to use `pdbprep` in a new
-terminal window.
+
+From within the pdbprep folder, run the following command to add the current directory
+to your $PATH variable.
+
+```bash
+PATH=$PATH:$(pwd)
+```
 
 ## 3.2 Prepare the PDB files
 
