@@ -116,8 +116,12 @@ prepare_pdb() {
     # PDBs where errors occurred remain in their intermediate folders.
 }
 
-
+if [[ -z $1 ]]; then
+    echo "ERROR: You need to give an input pdb list."
+    exit 1
+fi
 assert_file_exists $PRAS_exec
+assert_file_exists $1
 
 reset_folders=(\
     $pdbtools_folder \
