@@ -1,2 +1,2 @@
 #!/bin/bash
-export PATH=\$PATH:`pwd`
+export PATH="`pwd`:$PATH"
