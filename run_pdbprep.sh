@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # replace this by the path of your PRAS executable
-#PRAS_exec="/home/user/PRAS"
-PRAS_exec="/home/joao/github/joaotPRAS/Pras_Server_C++/PRAS"
+PRAS_exec="/home/user/PRAS"
 pdbtools_folder="0_pdbtools"
 pras_folder="1_pras"
 pdb2pqr_folder="2_pdb2pqr"
