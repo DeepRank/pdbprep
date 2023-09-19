@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2014-2023 pdb-tools project.
+# Copyright 2014-2023 pdb-tools project, https://github.com/haddocking/pdb-tools
 # Copyright 2023 João M.C. Teixeira (@joaomcteixeira).
 #
 # https://www.bonvinlab.org/pdb-tools/
@@ -74,7 +74,6 @@ def run(fhandle, starting_resid):
                     sys.exit(1)
 
             yield line[:22] + str(resid).rjust(4) + line[26:]
-
 
 
 def main():
