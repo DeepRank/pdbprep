@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # replace this by the path of your PRAS executable
+#PRAS_exec="/home/user/PRAS"
 PRAS_exec="/home/joao/github/joaotPRAS/Pras_Server_C++/PRAS"
 pdbtools_folder="0_pdbtools"
 pras_folder="1_pras"
@@ -123,22 +124,12 @@ reset_folders=(\
     $pras_folder \
     $pdb2pqr_folder \
     $protonation_folder \
-    $with_Hs_folder\
     )
 for folder in ${reset_folders[@]}
 do
     if [ -d $folder ]
     then
-        if [ $folder = $with_Hs_folder ]
-        then
-            echo "Remove '${folder}' folder?"
-            echo "    This folder contains ready-to-minimize PDBs."
-            echo "    If you remove it, all PDBs inside will be deleted."
-            echo "    Otherwise new treated PDBs will be added or updated."
-            rm -rI $folder
-        else
-            rm -r $folder
-        fi
+        rm -r $folder
     fi
     mkdir -p $folder
 done
@@ -153,8 +144,12 @@ fi
 echo "performing with ${ncores} CPUS.."
 for pdb in `cat $1`
 do
+   if [[ -f "$with_Hs_folder/${pdb##*/}" ]]; then
+       echo "${pdb##*/} exists in the $with_Hs_folder/ folder, skipping..."
+   else
    prepare_pdb $pdb &
    if [[ $(jobs -r -p | wc -l) -ge $ncores ]]; then wait -n; fi
+   fi
 done
 wait
 echo "all done"

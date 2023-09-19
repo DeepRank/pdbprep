@@ -140,8 +140,12 @@ only those in the last folder `4_ready_to_minimize` will be saved. If something
 goes wrong with a PDB, its intermediate temporary files won't be deleted so that
 errors can be traced.
 
-Several comments in the `run_pdbprep.sh` file explain the process in more
-detail.
+At startup, `run_pdbprep.sh` will delete all temporary folders (and the files
+inside), keeping only the folder with the *ready to minimize* structures.
+`run_pdbpred.sh` will skip those PDBs listed in the input `pdblist` that were
+already treated and are present in the *4_ready_to_minimize* folder. Therefore,
+you can restart a previously halted run without needing to repeat the already
+completed PDBs.
 
 # Troubleshooting
 
