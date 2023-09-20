@@ -28,7 +28,6 @@ tasks:
 as input to OpenMM
 1. Adds all hydrogens with OpenMM and the Amber14 forcefield using the
 information provided in the previous step
-1. If all steps succeeded, deletes all intermediate files and keeps only the final PDB.
 
 # How to install
 
