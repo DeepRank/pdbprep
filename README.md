@@ -64,7 +64,7 @@ cd Pras_Server_C++
 g++ -std=c++17 src/*.cpp -o PRAS
 ```
 
-Why installing the fork and not the official source? Because in the fork's
+Why installing the fork and not the original source? Because in the fork's
 branch the logging operations were removed to avoid writing thousand of log
 files to disk. All credit about PRAS should be given to the original authors:
 
