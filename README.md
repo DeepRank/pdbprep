@@ -89,8 +89,9 @@ improve their speed. Hence, the `pdb-tools` scripts provided here won't work
 outside the `pdbprep` context. If you want to use `pdb-tools` for any other need,
 install the official package `pip install pdb-tools`, and cite the original work.
 
-If PRAS was not placed in the default location (as suggested above), add the
-absolute path to the PRAS file in the `run_pdbprep.sh` file (edit line 4 of
+## Configure the path to the PRAS executable
+
+Add the absolute path to the PRAS file in the `run_pdbprep.sh` file (edit line 4 of
 `run_pdbprep.sh`).
 
 # How to run
