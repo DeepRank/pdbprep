@@ -136,7 +136,7 @@ do
     mkdir -p $folder
 done
 
-
+mkdir -p $with_Hs_folder
 
 if [ -z $2 ]
 then
