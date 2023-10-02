@@ -44,5 +44,51 @@ with open(protonated_sequence_fname, 'r') as fin:
 model = app.Modeller(structure.topology, structure.positions)
 model.addHydrogens(forcefield=forcefield, variants=protonated_sequence)
 
+structure.positions = model.positions
+structure.topology = model.topology
+
+#
+# Setup simulation
+#
+integrator = mm.LangevinIntegrator(
+    310*units.kelvin,
+    1.0/units.picosecond,
+    2.0*units.femtosecond,
+    )
+
+integrator.setRandomNumberSeed(917)
+integrator.setConstraintTolerance(0.00001)
+
+simulation = app.Simulation(structure.topology, system, integrator)
+
+context = simulation.context
+context.setPositions(model.positions)
+
+state = context.getState(getEnergy=True)
+ini_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+
+simulation.minimizeEnergy(maxIterations=100)
+structure.positions = context.getState(getPositions=True).getPositions()
+
+state = context.getState(getEnergy=True)
+min_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+logging.info('Pot. Energy: {:6.3f} (was {:6.3f})'.format(min_ene, ini_ene))
+
+#
+# Minimize
+#
+logging.info('Minimizing potential energy')
+
+state = context.getState(getEnergy=True)
+ini_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+
+simulation.minimizeEnergy(maxIterations=100)
+structure.positions = context.getState(getPositions=True).getPositions()
+
+state = context.getState(getEnergy=True)
+min_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+logging.info('Pot. Energy: {:6.3f} (was {:6.3f})'.format(min_ene, ini_ene))
+
+
 fout_fname = Path(output_folder, Path(input_structure).name)
-write_structure(fout_fname , model)
+write_structure(fout_fname , structure)
