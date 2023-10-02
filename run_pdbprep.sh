@@ -120,7 +120,6 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 assert_file_exists $PRAS_exec
-assert_file_exists $1
 
 reset_folders=(\
     $pdbtools_folder \
