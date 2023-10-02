@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-Add hydrogens to models
+Add hydrogens to models and performs a short minimization in vacuum.
 """
+import argparse
 import os
-import sys
 import json
 from copy import copy
 from pathlib import Path
@@ -18,18 +18,71 @@ def write_structure(fout_name, structure):
         app.PDBFile.writeFile(structure.topology, structure.positions, fout)
 
 
+ap = argparse.ArgumentParser()
+ap.add_argument(
+    '-s',
+    '--structure',
+    help="Input Structure",
+    required=True,
+    )
+
+ap.add_argument(
+    '-p',
+    '--protonation',
+    help="Protonation state file.",
+    required=True,
+    )
+
+ap.add_argument(
+    '-o',
+    '--output',
+    help="Output folder.",
+    required=True,
+    )
+
+ap.add_argument(
+    '-m',
+    '--minimize',
+    help="Whether or not to perform a short minimization in vacuum.",
+    action='store_true',
+    )
+
+ap.add_argument(
+    '-t',
+    '--temperature',
+    help="Minimization temperature in Kelvin. Default 310K.",
+    default=310,
+    type=int,
+    )
+
+ap.add_argument(
+    '-rs',
+    '--random-seed',
+    help='Randon seed for minimization.',
+    default=917,
+    type=int,
+    )
+
+ap.add_argument(
+    '-it',
+    '--max-iterations',
+    dest='max_iterations',
+    help='Maximum iterations for minimization.',
+    default=100,
+    type=int,
+    )
+
+cmd = ap.parse_args()
+
 # PARAMETERS
 forcefield_model = 'amber14-all.xml' #'charmm36.xml'
 water_model = 'amber14/tip3p.xml' #'charmm36/tip3p-pme-b.xml'
 kcal_mole = units.kilocalorie_per_mole
+platform_properties = {'Threads': str(1)}
 
-platform = mm.Platform.getPlatform(1)
-threads = os.cpu_count() - 1
-platform_properties = {'Threads': str(threads)}
-
-input_structure = sys.argv[1]
-protonated_sequence_fname = sys.argv[2]
-output_folder = sys.argv[3]
+input_structure = cmd.structure
+protonated_sequence_fname = cmd.protonation
+output_folder = cmd.output
 
 # PREPARES MODEL
 forcefield = app.ForceField(forcefield_model, water_model)
@@ -48,47 +101,39 @@ model.addHydrogens(forcefield=forcefield, variants=protonated_sequence)
 structure.positions = model.positions
 structure.topology = model.topology
 
-#
-# Setup simulation
-#
-system = forcefield.createSystem(structure.topology)
+if cmd.minimize:
+    system = forcefield.createSystem(structure.topology)
 
-integrator = mm.LangevinIntegrator(
-    310*units.kelvin,
-    1.0/units.picosecond,
-    2.0*units.femtosecond,
-    )
+    integrator = mm.LangevinIntegrator(
+        cmd.temperature*units.kelvin,
+        1.0/units.picosecond,
+        2.0*units.femtosecond,
+        )
 
-integrator.setRandomNumberSeed(917)
-integrator.setConstraintTolerance(0.00001)
+    integrator.setRandomNumberSeed(cmd.random_seed)
+    integrator.setConstraintTolerance(0.00001)
 
-simulation = app.Simulation(structure.topology, system, integrator)
+    simulation = app.Simulation(
+        structure.topology,
+        system,
+        integrator,
+        platformProperties=platform_properties,
+        )
 
-context = simulation.context
-context.setPositions(model.positions)
+    context = simulation.context
+    context.setPositions(model.positions)
 
-state = context.getState(getEnergy=True)
-ini_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+    state = context.getState(getEnergy=True)
+    ini_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
 
-simulation.minimizeEnergy(maxIterations=100)
-structure.positions = context.getState(getPositions=True).getPositions()
+    simulation.minimizeEnergy(maxIterations=cmd.max_iterations)
+    structure.positions = context.getState(getPositions=True).getPositions()
 
-state = context.getState(getEnergy=True)
-#min_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
+    state = context.getState(getEnergy=True)
 
-#
-# Minimize
-#
+    simulation.minimizeEnergy(maxIterations=100)
 
-state = context.getState(getEnergy=True)
-ini_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
-
-simulation.minimizeEnergy(maxIterations=100)
-structure.positions = context.getState(getPositions=True).getPositions()
-
-state = context.getState(getEnergy=True)
-#min_ene = state.getPotentialEnergy().value_in_unit(kcal_mole)
-
+    structure.positions = context.getState(getPositions=True).getPositions()
 
 fout_fname = Path(output_folder, Path(input_structure).name)
 write_structure(fout_fname , structure)

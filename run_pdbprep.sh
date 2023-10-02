@@ -85,7 +85,14 @@ do_add_hydrogens() {
     # that will be used for the MD minimization.
     prasout="${pras_folder}/${1}.pdb"
     protonationout="${protonation_folder}/${1}.json"
-    add_ff_hydrogens.py $prasout $protonationout $with_Hs_folder
+    add_ff_hydrogens.py \
+        -s $prasout \
+        -p $protonationout \
+        -o $with_Hs_folder \
+        -m \
+        -t 310 \
+        -rs 917 \
+        -it 100
 }
 
 do_clean() {
