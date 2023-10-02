@@ -136,6 +136,8 @@ do
     mkdir -p $folder
 done
 
+
+
 if [ -z $2 ]
 then
     ncores=1
