@@ -147,6 +147,32 @@ already treated and are present in the *4_ready_to_minimize* folder. Therefore,
 you can restart a previously halted run without needing to repeat the already
 completed PDBs.
 
+# Additional Features
+
+## Calculate interface pairwise energies
+
+Use the `evaluate_pairwise_energies.py` script to calculate atom-atom energies
+of a protein complex interface. Here, the interface is defined by a configurable
+distance parameter (defaults to 5 Angstroms). The script has several parameters
+to configure the execution and the calculation. Example:
+
+```bash
+$ python evaluate_pairwise_energies.py -h  # for listing all options
+$ python evaluate_pairwise_energies.py -s FILE.pdb  # to run on FILE.pdb
+```
+
+This will output a file of the following format:
+
+```
+chainA resnameA resiA atomA - chainB resnameB resiB atomA LJ Coulomb (kcal/mole)
+A LEU 20   HD13 - B ASN 60   OD1     -0.00803    -4.03991                       
+A PRO 21   N    - B ALA 46   HB1     -0.01046    -1.06165                       
+A PRO 21   N    - B ARG 48   HD2     -0.00725    -1.16984 
+(...)
+Total LJ: -22.92113 (kcal/mole)
+Total Coulomb: -278.20533 (kcal/mole)
+```
+
 # Troubleshooting
 
 ## Can't find Python
