@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # replace this by the path of your PRAS executable
-PRAS_exec="/home/user/PRAS"
+PRAS_exec="/home/joao/github/Pras_Server/Pras_Server_C++/PRAS"
 pdbtools_folder="0_pdbtools"
 pras_folder="1_pras"
 pdb2pqr_folder="2_pdb2pqr"
@@ -85,7 +85,14 @@ do_add_hydrogens() {
     # that will be used for the MD minimization.
     prasout="${pras_folder}/${1}.pdb"
     protonationout="${protonation_folder}/${1}.json"
-    add_ff_hydrogens.py $prasout $protonationout $with_Hs_folder
+    add_ff_hydrogens.py \
+        -s $prasout \
+        -p $protonationout \
+        -o $with_Hs_folder \
+        -m \
+        -t 310 \
+        -rs 917 \
+        -it 100
 }
 
 do_clean() {
