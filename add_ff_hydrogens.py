@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Add hydrogens to models and performs a short minimization in vacuum.
+Add hydrogens to models and perform a short minimization in vacuum.
 """
 import argparse
 import json

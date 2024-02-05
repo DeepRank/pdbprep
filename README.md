@@ -128,6 +128,12 @@ To execute the pipeline on the list of target PDBs, run:
 run_pdbprep.sh pdblist <N>
 ```
 
+or (to run without minimization):
+
+```
+run_pdbprep.sh pdblist <N> -m false
+```
+
 Where `N` is the number of threads (cores) you want to use. The multithreading
 operation follows an *embarrassingly parallel* scheme where each thread will
 take a PDB from the list and process it independently until the end.
