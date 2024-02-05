@@ -52,9 +52,15 @@ Install the following dependencies in the Python environment you wish to run
 1. Install chardet: `conda install chardet`
 1. Install pdb2pqr: `pip install pdb2pqr`
 1. Install @joaomcteixeira fork of the `Pras_Server` as follows and **outside**
-the `pdbpred` folder:
+the `pdbpred` folder.
+  - Assuming you are currently in the root folder of the `pdbpred` repository, 
+    run the following code. This will install PRAS in the default expected location
+    relative to the `pdpprep` repository.
+  - If you decide to install it in a different location, add the absolute path of the `PRAS` 
+    repository to `run_pdbprep.sh` file (edit line 4 of `run_pdbprep.sh`).
 
 ```bash
+cd ..
 # clone the fork and compile the software from the `nolog` branch
 git clone https://github.com/joaomcteixeira/Pras_Server
 cd Pras_Server
@@ -90,11 +96,6 @@ improve their speed. Hence, the `pdb-tools` scripts provided here won't work
 outside the `pdbprep` context. If you want to use `pdb-tools` for any other need,
 install the official package `pip install pdb-tools`, and cite the original work.
 
-## Configure the path to the PRAS executable
-
-Add the absolute path to the PRAS file in the `run_pdbprep.sh` file (edit line 4 of
-`run_pdbprep.sh`).
-
 # How to run
 
 ## Source the `setup.sh` file
@@ -128,9 +129,18 @@ To execute the pipeline on the list of target PDBs, run:
 run_pdbprep.sh pdblist <N>
 ```
 
+or (to run without minimization):
+
+```
+run_pdbprep.sh pdblist <N> -m false
+```
+
 Where `N` is the number of threads (cores) you want to use. The multithreading
 operation follows an *embarrassingly parallel* scheme where each thread will
 take a PDB from the list and process it independently until the end.
+
+If you get an `ImportError` related to "`GLIBCXX_3.4.30` not found", follow [Method 1 of these instructions](https://devicetests.com/fix-glibcxx-3-4-30-not-found-error-in-conda-environment) to resolve.
+
 
 ## What to expect?
 

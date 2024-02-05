@@ -26,7 +26,6 @@
 # (@joaomcteixeira) who is co-author in the `pdb-tools` project. Any credit to
 # the value of `pdb-tools` scripts present in the `pdbprep` project should be
 # given to the original `pdb-tools` project.
-import os
 import sys
 
 
