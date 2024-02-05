@@ -3,7 +3,6 @@
 Add hydrogens to models and performs a short minimization in vacuum.
 """
 import argparse
-import os
 import json
 from copy import copy
 from pathlib import Path
